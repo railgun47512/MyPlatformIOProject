@@ -1,75 +1,90 @@
 #include <Arduino.h>
-
-// Define pin numbers for LEDs
-
-//LED SET 1
-const int RED_LED1 = 23;
-const int YELLOW_LED1 = 19;
-const int GREEN_LED1 = 18;
-
-// LED SET 2
-const int RED_LED2 = 5;
-const int YELLOW_LED2 = 17;
-const int GREEN_LED2 = 16;
-
-// Define timing variables in milliseconds
-const unsigned long RED_TIME = 10000;    // Red light duration
-const unsigned long YELLOW_TIME = 3000; // Yellow light duration
-const unsigned long GREEN_TIME = 10000;  // Green light duration
-int myFunction(int, int);
-
-void setup() {
-// Set LED pins as outputs
-    pinMode (RED_LED1, OUTPUT);
-    pinMode (YELLOW_LED1, OUTPUT);
-    pinMode (GREEN_LED1, OUTPUT);
-    
-    pinMode (RED_LED2, OUTPUT);
-    pinMode (YELLOW_LED2, OUTPUT);
-    pinMode (GREEN_LED2, OUTPUT);
-  int result = myFunction(2, 3);
+int led1 = 23;
+int led2 = 19;
+int led3 = 18;
+int led4 = 5;
+int led5 = 17;
+int led6 = 16;
+int led7 = 4;
+int led8 = 0;
+int potPin = 36;
+void setup(){
+    pinMode (led1,OUTPUT);
+    pinMode (led2,OUTPUT);
+    pinMode (led3,OUTPUT);
+    pinMode (led4,OUTPUT);
+    pinMode (led5,OUTPUT);
+    pinMode (led6,OUTPUT);
+    pinMode (led7,OUTPUT);
+    pinMode (led8,OUTPUT);
 }
-
 void loop() {
- // Red light phase
-    digitalWrite(RED_LED1, HIGH);
-    digitalWrite(GREEN_LED2, HIGH);
-    delay(RED_TIME);
-    digitalWrite(RED_LED1, LOW);
-    digitalWrite(GREEN_LED2, LOW); 
-    
-    // Yellow light phase
-    digitalWrite(YELLOW_LED2, HIGH);
-    delay(YELLOW_TIME);
-    digitalWrite(YELLOW_LED2, LOW);
+    int potValue = analogRead(potPin); // อ่านค่าจาก potentiometer
+    int range = map(potValue, 0, 4095, 0, 4000); // แปลงค่าจาก potentiometer เป็นช่วง 0-4000
 
-    // Green light phase
-    digitalWrite(GREEN_LED1, HIGH);
-    digitalWrite(RED_LED2, HIGH);
-    delay(GREEN_TIME);
-    digitalWrite(GREEN_LED1, LOW);
-    digitalWrite(RED_LED2, LOW);
+    // ปิดไฟทั้งหมดก่อน
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    digitalWrite(led4, LOW);
+    digitalWrite(led5, LOW);
+    digitalWrite(led6, LOW);
+    digitalWrite(led7, LOW);
+    digitalWrite(led8, LOW);
 
+    // เปิดไฟตามค่า range
+    if (range >= 0 && range < 500) {
+        digitalWrite(led1, HIGH);
+    }
+    else if (range >= 500 && range < 1000) {
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+    }
+    else if (range >= 1000 && range < 1500) {
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+        digitalWrite(led3, HIGH);
+    }
+    else if (range >= 1500 && range < 2000) {
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+        digitalWrite(led3, HIGH);
+        digitalWrite(led4, HIGH);
+    }
+    else if (range >= 2000 && range < 2500) {
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+        digitalWrite(led3, HIGH);
+        digitalWrite(led4, HIGH);
+        digitalWrite(led5, HIGH);
+    }
+    else if (range >= 2500 && range < 3000) {
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+        digitalWrite(led3, HIGH);
+        digitalWrite(led4, HIGH);
+        digitalWrite(led5, HIGH);
+        digitalWrite(led6, HIGH);
+    }
+    else if (range >= 3000 && range < 3500) {
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+        digitalWrite(led3, HIGH);
+        digitalWrite(led4, HIGH);
+        digitalWrite(led5, HIGH);
+        digitalWrite(led6, HIGH);
+        digitalWrite(led7, HIGH);
+    }
+    else if (range >= 3500 && range <= 4000) {
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+        digitalWrite(led3, HIGH);
+        digitalWrite(led4, HIGH);
+        digitalWrite(led5, HIGH);
+        digitalWrite(led6, HIGH);
+        digitalWrite(led7, HIGH);
+        digitalWrite(led8, HIGH);
+    }
 
-    digitalWrite(YELLOW_LED1, HIGH);
-    delay(YELLOW_TIME);
-    digitalWrite(YELLOW_LED1, LOW);
-    // Green light phase
-    digitalWrite(GREEN_LED2, HIGH);
-    delay(GREEN_TIME);
-    digitalWrite(GREEN_LED2, LOW);   
-
-    // Yellow light phase
-    digitalWrite(YELLOW_LED2, HIGH);
-    delay(YELLOW_TIME);
-    digitalWrite(YELLOW_LED2, LOW); 
-
-    // Red light phase
-    digitalWrite(RED_LED2, HIGH);
-    delay(RED_TIME);
-    digitalWrite(RED_LED2, LOW);
- }
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+    delay(10); // ปรับความเร็วในการเปลี่ยนแปลง
 }
